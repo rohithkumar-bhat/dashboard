@@ -59,12 +59,8 @@ async def get_attendance_data():
 
 @app.get("/")
 async def read_index():
-    return FileResponse("index.html")
+    return FileResponse(os.path.join(BASE_DIR, "static", "index.html"))
 
-# Serve other static files (css, js) directly from current directory
-# In a production app, we would use a dedicated 'static' directory
-app.mount("/static", StaticFiles(directory="."), name="static")
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("app:app")
+
